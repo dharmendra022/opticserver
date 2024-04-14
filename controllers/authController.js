@@ -7,7 +7,6 @@ export const registerController = async (req, res) => {
   try {
     const { name, lname, email, password, cpassword } = req.body;
     console.log(req.body);
-
     //validations
     if (!name) {
       return res.send({ message: "Name is Required" });
@@ -59,6 +58,7 @@ export const registerController = async (req, res) => {
     });
   }
 };
+
 //POST Routes
 export const loginController = async (req, res) => {
   try {
@@ -106,6 +106,26 @@ export const loginController = async (req, res) => {
       success: false,
       message: "Error in login",
       error,
+    });
+  }
+};
+
+// get all user api
+export const getAllUsers = async (req, res) => {
+  try {
+    // Fetch all user details from the database
+    const users = await userModel.find({}, { password: 0 }); // Exclude password field from the response
+    res.status(200).json({
+      success: true,
+      message: "User details retrieved successfully",
+      users,
+    });
+  } catch (error) {
+    console.error("Error in retrieving user details:", error);
+    res.status(500).json({
+      success: false,
+      message: "Error in retrieving user details",
+      error: error.message,
     });
   }
 };
