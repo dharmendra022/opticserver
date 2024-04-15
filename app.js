@@ -10,6 +10,7 @@ import categoryRoute from "./routes/categoryRoute.js";
 import productRoutes from "./routes/productRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js"
 import newSaleRoutes from "./routes/newSaleRoutes.js"
+import reviewRoutes from "./routes/reviewRoutes.js"
 
 import path from "path";
 import { fileURLToPath } from "url";
@@ -37,6 +38,7 @@ app.use("/api/v1/category", categoryRoute);
 app.use("/api/v1/product", productRoutes);
 app.use("/api/v1/banner", bannerRoutes);
 app.use("/api/v1/sale", newSaleRoutes);
+app.use("/api/v1/review", reviewRoutes)
 
 app.use("/", (req, res) => {
   res.send("Welcome");
