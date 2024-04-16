@@ -79,11 +79,6 @@ export const deleteBanner = async (req, res) => {
 };
 
 
-
-
-
-
-
 //get all Banner
 export const getBannerController = async (req, res) => {
   try {
