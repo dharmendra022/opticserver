@@ -2,10 +2,11 @@ import bannerModel from "../models/bannerModel.js";
 import fs from "fs";
 import slugify from "slugify";
 
+
 export const postBanner = async (req, res) => {
   try {
     console.log(req.files);
-    const { mediaType ,slug} = req.body;
+    const { mediaType, slug } = req.body;
     if (!mediaType) {
       throw new Error("MediaType is required");
     }
@@ -20,16 +21,20 @@ export const postBanner = async (req, res) => {
       }
     }).flat();
     const banner = await bannerModel.create({
-      mediaKeys, 
+      mediaKeys: mediaKeys.map(filename => ({ filename })),
       mediaType,
       slug
     });
     res.status(201).json({ success: true, message: "Banner created successfully", banner });
   } catch (error) {
-    console.error(error); 
+    console.error(error);
     res.status(400).json({ success: false, message: error.message });
   }
 };
+
+
+
+
 
 // get banner
 export const getBanner = async (req, res) => {
@@ -49,13 +54,23 @@ export const getBanner = async (req, res) => {
 export const updateBanner = async (req, res) => {
   try {
     const { mediaType, slug } = req.body;
-    if (!mediaType) {
-      throw new Error("MediaType is required");
-    }
-    const banner = await bannerModel.findByIdAndUpdate(req.params.id, { mediaType, slug }, { new: true });
+    const bannerId = req.params.id;
+
+    const banner = await bannerModel.findById(bannerId);
     if (!banner) {
-      throw new Error("Banner not found");
+      return res.status(404).json({ success: false, message: "Banner not found" });
     }
+
+    // Update the banner properties if provided in the request body
+    if (mediaType) {
+      banner.mediaType = mediaType;
+    }
+    if (slug) {
+      banner.slug = slug;
+    }
+
+    await banner.save();
+
     res.status(200).json({ success: true, message: "Banner updated successfully", banner });
   } catch (error) {
     console.error(error);
@@ -65,18 +80,41 @@ export const updateBanner = async (req, res) => {
 
 
 // Delete Banner
+// Delete Banner API
 export const deleteBanner = async (req, res) => {
   try {
-    const banner = await bannerModel.findByIdAndDelete(req.params.id);
+    const bannerId = req.params.id;
+
+    const banner = await bannerModel.findById(bannerId);
     if (!banner) {
-      throw new Error("Banner not found");
+      return res.status(404).json({ success: false, message: "Banner not found" });
     }
-    res.status(200).json({ success: true, message: "Banner deleted successfully", banner });
+
+    await bannerModel.deleteOne({ _id: bannerId }); // Use deleteOne() to remove the banner
+
+    res.status(200).json({ success: true, message: "Banner deleted successfully" });
   } catch (error) {
     console.error(error);
     res.status(400).json({ success: false, message: error.message });
   }
 };
+
+
+// get all banner
+export const getAllBanners = async (req, res) => {
+  try {
+    const banners = await bannerModel.find();
+    res.status(200).json({ success: true, banners });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Server error" });
+  }
+};
+
+
+
+
+
 
 
 //get all Banner

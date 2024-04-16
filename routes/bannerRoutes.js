@@ -10,7 +10,8 @@ import {
   updateBannerController,
   getBanner,
   updateBanner,
-  deleteBanner
+  deleteBanner,
+  getAllBanners
 } from "../controllers/bannerController.js";
 const router = express.Router();
 import  {upload}  from "../middleware/common-middleware/imageUpload.js";
@@ -27,6 +28,9 @@ router.patch('/banners/:id', updateBanner);
 
 // DELETE endpoint for deleting a specific banner
 router.delete('/banners/:id', deleteBanner);
+
+// GET endpoint for retrieving all banners
+router.get('/banners', getAllBanners);
 
 
 
