@@ -1,18 +1,19 @@
 import mongoose from "mongoose";
 
 const bannerSchema = new mongoose.Schema({
-  name: {
-    type: String,
+  mediaKeys: {
+    type: [String], 
     required: true,
   },
-  slug: {
-    type: String,
+  slug:{
+    type: String, 
     required: true,
   },
-  photo: {
-    data: Buffer,
-    contentType: String,
+  mediaType: {
+    type: String,
+    enum: ["document", "image", "video"],
+    required: true,
   },
-},{timestamps:true});
+});
 
 export default mongoose.model("Banners", bannerSchema);

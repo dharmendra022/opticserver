@@ -11,21 +11,19 @@ import productRoutes from "./routes/productRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js"
 import newSaleRoutes from "./routes/newSaleRoutes.js"
 import reviewRoutes from "./routes/reviewRoutes.js"
-
 import path from "path";
 import { fileURLToPath } from "url";
-
-
 dotenv.config();
 connectDB();
 
 //ES module fix
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+console.log("filename", __dirname);
 
 export const app = express();
 
-app.use(express.static('public'));
+app.use(express.static('uploads'));
 //middleware
 app.use(cors());
 app.use(express.json());
@@ -43,8 +41,9 @@ app.use("/api/v1/review", reviewRoutes)
 app.use("/", (req, res) => {
   res.send("Welcome");
 });
-const PORT = process.env.PORT || 8080;
 
+
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is Running on Port ${PORT}`.bgCyan.white);
 });
