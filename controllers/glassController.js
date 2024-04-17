@@ -2,8 +2,6 @@ import glassModel from "../models/glassModel.js";
 
 export const postGlasses = async (req, res) => {
     try {
-        // console.log("Request Body:", req.body);
-        // console.log("Request File:", req.file);
         const { glassesName, mediaType ,slug} = req.body;
         if (!req.file) {
             throw new Error("No file uploaded");
