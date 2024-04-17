@@ -33,9 +33,6 @@ export const postBanner = async (req, res) => {
 };
 
 
-
-
-
 // get banner
 export const getBanner = async (req, res) => {
   try {
@@ -60,23 +57,22 @@ export const updateBanner = async (req, res) => {
     if (!banner) {
       return res.status(404).json({ success: false, message: "Banner not found" });
     }
-
-    // Update the banner properties if provided in the request body
     if (mediaType) {
       banner.mediaType = mediaType;
     }
     if (slug) {
       banner.slug = slug;
     }
-
     await banner.save();
-
     res.status(200).json({ success: true, message: "Banner updated successfully", banner });
   } catch (error) {
     console.error(error);
     res.status(400).json({ success: false, message: error.message });
   }
 };
+
+// My code end
+
 
 
 // Delete Banner
@@ -220,6 +216,7 @@ export const updateBannerController = async (req, res) => {
     });
   }
 };
+
 //delete controller
 export const deleteBannerController = async (req, res) => {
   try {

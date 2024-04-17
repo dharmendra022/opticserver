@@ -6,11 +6,10 @@ import cors from "cors";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import authRoutes from "./routes/authRoutes.js";
-import categoryRoute from "./routes/categoryRoute.js";
-import productRoutes from "./routes/productRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js"
 import newSaleRoutes from "./routes/newSaleRoutes.js"
 import reviewRoutes from "./routes/reviewRoutes.js"
+import glassRoutes from "./routes/glassRoutes.js"
 import path from "path";
 import { fileURLToPath } from "url";
 dotenv.config();
@@ -32,11 +31,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 //routing
 app.use("/api/v1/auth", authRoutes);
-app.use("/api/v1/category", categoryRoute);
-app.use("/api/v1/product", productRoutes);
 app.use("/api/v1/banner", bannerRoutes);
 app.use("/api/v1/sale", newSaleRoutes);
 app.use("/api/v1/review", reviewRoutes)
+app.use("/api/v1/glass", glassRoutes)
 
 app.use("/", (req, res) => {
   res.send("Welcome");
