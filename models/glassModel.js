@@ -4,9 +4,6 @@ const glassesSchema = new mongoose.Schema({
   glassesName:{
     type:String
   },
-  type: {
-    type: String,
-  },
   mediaKey: {
     type: String,
   },
@@ -14,7 +11,7 @@ const glassesSchema = new mongoose.Schema({
     type: String,
     enum: ["document", "image", "video"],
   },
-  colour:{
+  slug:{
     type:String,
   },
   timestamp: {

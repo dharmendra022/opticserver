@@ -4,15 +4,14 @@ export const postGlasses = async (req, res) => {
     try {
         // console.log("Request Body:", req.body);
         // console.log("Request File:", req.file);
-        const { glassesName, type, colour, mediaType } = req.body;
+        const { glassesName, mediaType ,slug} = req.body;
         if (!req.file) {
             throw new Error("No file uploaded");
         }
         const mediaKey = req.file.filename; 
         const newGlasses = await glassModel.create({
+            slug,
             glassesName,
-            type,
-            colour,
             mediaKey,
             mediaType,
         });
