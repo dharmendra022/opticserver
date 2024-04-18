@@ -2,7 +2,7 @@ import typesGlassModal from "../models/typesGlassModal.js";
 
 export const typePostGlasses = async (req, res) => {
     try {
-        const { glassesName, mediaType ,slug, color, glassId,price} = req.body;
+        const { glassesName, mediaType ,slug, colour, glassId,price} = req.body;
         if (!req.file) {
             throw new Error("No file uploaded");
         }
@@ -12,7 +12,7 @@ export const typePostGlasses = async (req, res) => {
             glassesName,
             mediaKey,
             mediaType,
-            color,
+            colour,
             glassId,
             price,
             
@@ -65,9 +65,26 @@ export const typeDeleteGlass = async (req, res) => {
 
 
 // get all glass
+// export const getAllGlassesTypes = async (req, res) => {
+//     try {
+//         const glasses = await typesGlassModal.find();
+//         res.status(200).json({ success: true, message: "All glasses fetched successfully", glasses });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(400).json({ success: false, message: error.message });
+//     }
+// };
+
 export const getAllGlassesTypes = async (req, res) => {
     try {
-        const glasses = await typesGlassModal.find();
+        let query = {};
+        // Check if the color parameter exists in the request query
+        if (req.query.colour) {
+            // If color parameter exists, add it to the query
+            query.colour = req.query.colour;
+        }
+        // Fetch glasses data based on the query
+        const glasses = await typesGlassModal.find(query);
         res.status(200).json({ success: true, message: "All glasses fetched successfully", glasses });
     } catch (error) {
         console.error(error);

@@ -4,7 +4,7 @@ const typesGlass = new mongoose.Schema({
   glassesName:{
     type:String
   },
-  color:{
+  colour:{
     type:String
   },
   price:{
