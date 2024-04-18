@@ -6,7 +6,6 @@ const mediaSchema = new mongoose.Schema({
     required: true
   }
 });
-
 const bannerSchema = new mongoose.Schema({
   mediaKeys: {
     type: [mediaSchema], // Define mediaSchema as the type

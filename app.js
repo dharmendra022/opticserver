@@ -10,6 +10,7 @@ import bannerRoutes from "./routes/bannerRoutes.js"
 import newSaleRoutes from "./routes/newSaleRoutes.js"
 import reviewRoutes from "./routes/reviewRoutes.js"
 import glassRoutes from "./routes/glassRoutes.js"
+import typesGlassRoutes from "./routes/typesGlassRoutes.js"
 import path from "path";
 import { fileURLToPath } from "url";
 dotenv.config();
@@ -39,6 +40,8 @@ app.use("/api/v1/banner", bannerRoutes);
 app.use("/api/v1/sale", newSaleRoutes);
 app.use("/api/v1/review", reviewRoutes)
 app.use("/api/v1/glass", glassRoutes)
+app.use("/api/v1/types",typesGlassRoutes)
+
 
 app.use("/", (req, res) => {
   res.send("Welcome");
