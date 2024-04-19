@@ -64,3 +64,21 @@ export const deleteProduct = async (req, res) => {
     }
 };
 
+
+export const getAllProducts = async (req, res) => {
+    try {
+        // Fetch all products from the database
+        const allProducts = await newOnSale.find();
+        // Check if there are no products
+        if (!allProducts || allProducts.length === 0) {
+            return res.status(404).json({ message: "No products found" });
+        }
+
+        // Send the products in the response
+        res.status(200).json(allProducts);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+};
+
