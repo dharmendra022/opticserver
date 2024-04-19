@@ -26,6 +26,9 @@ const typesGlass = new mongoose.Schema({
   timestamp: {
     type: Date,
     default: Date.now,
+  },
+  size:{
+    type:String
   }
 });
 

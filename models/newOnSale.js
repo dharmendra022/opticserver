@@ -6,17 +6,14 @@ const productSchema = new mongoose.Schema({
     price: {
         type: Number,
     },
-    quantity: {
-        type: Number,
-    },
-    description: {
-        type: String,
-    },
     offer: {
         type: Number,
     },
-    image:{
+    mediaKey:{
         type:String
+    },
+    slug:{
+        type:String,
     }
 });
 

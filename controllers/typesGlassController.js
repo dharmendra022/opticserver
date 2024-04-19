@@ -2,11 +2,11 @@ import typesGlassModal from "../models/typesGlassModal.js";
 
 export const typePostGlasses = async (req, res) => {
     try {
-        const { glassesName, mediaType ,slug, colour, glassId,price} = req.body;
+        const { glassesName, mediaType, slug, colour, glassId, price, size } = req.body;
         if (!req.file) {
             throw new Error("No file uploaded");
         }
-        const mediaKey = req.file.filename; 
+        const mediaKey = req.file.filename;
         const newGlasses = await typesGlassModal.create({
             slug,
             glassesName,
@@ -15,7 +15,8 @@ export const typePostGlasses = async (req, res) => {
             colour,
             glassId,
             price,
-            
+            size
+
         });
         res.status(201).json({ success: true, message: "Glasses created successfully", glasses: newGlasses });
     } catch (error) {
@@ -27,12 +28,13 @@ export const typePostGlasses = async (req, res) => {
 
 // pathc
 export const updateTypeGlass = async (req, res) => {
+    console.log("req", req);
     try {
         const { id } = req.params;
-        const { glassesName, type, colour, mediaType ,glassId,price} = req.body;
+        const { glassesName, mediaType, slug, colour, glassId, price, size } = req.body;
         const updatedGlass = await typesGlassModal.findByIdAndUpdate(
             id,
-            { glassesName, type, colour, mediaType , glassId, price},
+            { glassesName, mediaType, slug, colour, glassId, price, size },
             { new: true, runValidators: true }
         );
         if (!updatedGlass) {
@@ -44,6 +46,7 @@ export const updateTypeGlass = async (req, res) => {
         res.status(400).json({ success: false, message: error.message });
     }
 };
+
 
 
 
